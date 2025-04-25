@@ -1,3 +1,7 @@
+import java.io.File;
+import java.util.Scanner;
+
+
 class CaesarCipher {
     public static char encryptChar(char character) {
         int shift = 3;
@@ -12,6 +16,7 @@ class CaesarCipher {
 }
 
 interface Cipher {
+    CaesarCipher caesar = new CaesarCipher();
     public void performAction();
 }
 
@@ -19,6 +24,8 @@ interface Cipher {
 class InMemoryCipherStrategy implements Cipher {
     public void performAction() {
 // load in byte[] ....
+        System.out.println("Cipher performed action");
+        System.out.println(caesar.encryptChar('A'));
     }
 }
 
@@ -26,6 +33,8 @@ class InMemoryCipherStrategy implements Cipher {
 class SwaptToDiskCipher implements Cipher {
     public void performAction() {
 // swapt partial results to file.
+        System.out.println("Cipher performed action");
+        System.out.println(caesar.encryptChar('C'));
     }
 }
 
@@ -34,7 +43,22 @@ class SwaptToDiskCipher implements Cipher {
 class Encrypt{
     private Cipher cipher;
 
-    public Encrypt(String filename) {}
+    public void encrypt_file(String fileName) {
+        File file = new File(fileName);
+
+        if (!file.exists()) {
+            System.out.println("File does not exist at the provided path.");
+            return;
+        }
+
+        if (file.length() < 1024L * 1024L) {
+            cipher = new InMemoryCipherStrategy();
+        } else {
+            cipher = new SwaptToDiskCipher();
+        }
+
+        cipher.performAction();
+    }
 }
 
 
@@ -42,6 +66,14 @@ class Encrypt{
 
 public class Main {
     public static void main(String[] args) {
-        Encrypt encrypt = new Encrypt("txt.txt");
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter path to file: ");
+        String path = scanner.nextLine().trim();
+
+
+        Encrypt encrypt = new Encrypt();
+        encrypt.encrypt_file(path);
     }
 }
