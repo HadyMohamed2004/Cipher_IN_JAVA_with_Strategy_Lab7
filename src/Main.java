@@ -1,4 +1,15 @@
+class CaesarCipher {
+    public static char encryptChar(char character) {
+        int shift = 3;
 
+        if (Character.isLetter(character)) {
+            char base = Character.isUpperCase(character) ? 'A' : 'a';
+            return (char) ((character - base + shift) % 26 + base);
+        } else {
+            return character;
+        }
+    }
+}
 
 interface Cipher {
     public void performAction();
