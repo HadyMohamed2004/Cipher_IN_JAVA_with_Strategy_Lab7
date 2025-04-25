@@ -19,6 +19,7 @@ class SwaptToDiskCipher implements Cipher {
 }
 
 
+// Context Class
 class Encrypt{
     private Cipher cipher;
 
