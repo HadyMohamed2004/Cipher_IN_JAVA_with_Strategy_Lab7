@@ -1,0 +1,84 @@
+HellowOrlsnb w1--42-1nfjb2
+class InMemoryCipherStrategy implements Cipher {
+    public void performAction(File file) {
+        try {
+            byte[] read = Files.readAllBytes(file.toPath());
+            String text = new String(read);
+
+            StringBuilder builder = new StringBuilder();
+            for (char c : text.toCharArray()) {
+                builder.append(CaesarCipher.encryptChar(c));
+            }
+
+            System.out.println("Encrypted Text: " + builder.toString());
+
+            // Write encrypted text to new file
+            String outputPath = file.getPath() + "-shortencrypted.txt";
+            Files.write(Paths.get(outputPath), builder.toString().getBytes());
+
+            System.out.println("Encrypted content written to: " + outputPath);
+
+        } catch (IOException e) {
+            System.out.println("Error handling File: " + e);
+        }
+    }
+}
+class InMemoryCipherStrategy implements Cipher {
+    public void performAction(File file) {
+        try {
+            byte[] read = Files.readAllBytes(file.toPath());
+            String text = new String(read);
+
+            StringBuilder builder = new StringBuilder();
+            for (char c : text.toCharArray()) {
+                builder.append(CaesarCipher.encryptChar(c));
+            }
+
+            System.out.println("Encrypted Text: " + builder.toString());
+
+            // Write encrypted text to new file
+            String outputPath = file.getPath() + "-shortencrypted.txt";
+            Files.write(Paths.get(outputPath), builder.toString().getBytes());
+
+            System.out.println("Encrypted content written to: " + outputPath);
+
+        } catch (IOException e) {
+            System.out.println("Error handling File: " + e);
+        }
+    }
+}
+class InMemoryCipherStrategy implements Cipher {
+    public void performAction(File file) {
+        try {
+            byte[] read = Files.readAllBytes(file.toPath());
+            String text = new String(read);
+
+            StringBuilder builder = new StringBuilder();
+            for (char c : text.toCharArray()) {
+                builder.append(CaesarCipher.encryptChar(c));
+            }
+
+            System.out.println("Encrypted Text: " + builder.toString());
+
+            // Write encrypted text to new file
+            String outputPath = file.getPath() + "-shortencrypted.txt";
+            Files.write(Paths.get(outputPath), builder.toString().getBytes());
+
+            System.out.println("Encrypted content written to: " + outputPath);
+
+        } catch (IOException e) {
+            System.out.println("Error handling File: " + e);
+        }
+    }
+}
+class InMemoryCipherStrategy implements Cipher {
+    public void performAction(File file) {
+        try {
+            byte[] read = Files.readAllBytes(file.toPath());
+            String text = new String(read);
+
+            StringBuilder builder = new StringBuilder();
+            for (char c : text.toCharArray()) {
+                builder.append(CaesarCipher.encryptChar(c));
+            }
+

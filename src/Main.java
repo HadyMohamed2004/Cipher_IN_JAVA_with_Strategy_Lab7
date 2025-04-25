@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Scanner;
+import java.io.*;
+import java.nio.file.Paths;
+
 
 
 class CaesarCipher {
@@ -19,13 +22,14 @@ class CaesarCipher {
 
 interface Cipher {
     CaesarCipher caesar = new CaesarCipher();
-    public void performAction(File file);
+
+    public void performAction(File file) throws IOException;
 }
 
 
 class InMemoryCipherStrategy implements Cipher {
     public void performAction(File file) {
-        try{
+        try {
             byte[] read = Files.readAllBytes(file.toPath());
             String text = new String(read);
 
@@ -33,30 +37,47 @@ class InMemoryCipherStrategy implements Cipher {
             for (char c : text.toCharArray()) {
                 builder.append(CaesarCipher.encryptChar(c));
             }
-        System.out.println(builder.toString());
 
-        }
-        catch(IOException e){
-            System.out.println("Error handling File: "+e);
+            System.out.println("Encrypted Text: " + builder.toString());
+
+            // Write encrypted text to new file
+            String outputPath = file.getPath() + "-shortencrypted.txt";
+            Files.write(Paths.get(outputPath), builder.toString().getBytes());
+
+            System.out.println("Encrypted content written to: " + outputPath);
+
+        } catch (IOException e) {
+            System.out.println("Error handling File: " + e);
         }
     }
 }
 
 
 class SwaptToDiskCipher implements Cipher {
-    public void performAction(File file) {
-// swapt partial results to file.
-        System.out.println("Cipher performed action");
-        System.out.println(caesar.encryptChar('C'));
+    public void performAction(File file) throws IOException {
+
+        // swapt partial results to file.
+
+        String outputFilePath = file.getPath() + "-longencrypted.txt";
+
+        FileReader reader = new FileReader(file);
+        FileWriter writer = new FileWriter(outputFilePath);
+
+        int c;
+        while ((c = reader.read()) != -1) {
+            char encryptedChar = CaesarCipher.encryptChar((char) c);
+            writer.write(encryptedChar);
+        }
+
+        System.out.println("Encrypted content written to: " + outputFilePath);
     }
 }
 
-
 // Context Class
-class Encrypt{
+class Encrypt {
     private Cipher cipher;
 
-    public void encrypt_file(String fileName) {
+    public void encrypt_file(String fileName) throws IOException {
         File file = new File(fileName);
 
         if (!file.exists()) {
@@ -75,12 +96,14 @@ class Encrypt{
 }
 
 
-
-
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("File Encryption System");
+        System.out.println("===========================");
+        System.out.println("This program encrypts a text file using Caesar Cipher.");
 
         System.out.print("Enter path to file: ");
         String path = scanner.nextLine().trim();
