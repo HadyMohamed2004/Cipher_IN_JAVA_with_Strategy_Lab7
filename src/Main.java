@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Scanner;
 
 
@@ -17,21 +19,32 @@ class CaesarCipher {
 
 interface Cipher {
     CaesarCipher caesar = new CaesarCipher();
-    public void performAction();
+    public void performAction(File file);
 }
 
 
 class InMemoryCipherStrategy implements Cipher {
-    public void performAction() {
-// load in byte[] ....
-        System.out.println("Cipher performed action");
-        System.out.println(caesar.encryptChar('A'));
+    public void performAction(File file) {
+        try{
+            byte[] read = Files.readAllBytes(file.toPath());
+            String text = new String(read);
+
+            StringBuilder builder = new StringBuilder();
+            for (char c : text.toCharArray()) {
+                builder.append(CaesarCipher.encryptChar(c));
+            }
+        System.out.println(builder.toString());
+
+        }
+        catch(IOException e){
+            System.out.println("Error handling File: "+e);
+        }
     }
 }
 
 
 class SwaptToDiskCipher implements Cipher {
-    public void performAction() {
+    public void performAction(File file) {
 // swapt partial results to file.
         System.out.println("Cipher performed action");
         System.out.println(caesar.encryptChar('C'));
@@ -57,7 +70,7 @@ class Encrypt{
             cipher = new SwaptToDiskCipher();
         }
 
-        cipher.performAction();
+        cipher.performAction(file);
     }
 }
 
