@@ -102,6 +102,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("File Encryption System");
+        System.out.println("By");
+        System.out.println("Hady Mohammed Meawad - 20230455");
+        System.out.println("Mohamed Mahmoud Bayoumy - 20230620");
         System.out.println("===========================");
         System.out.println("This program encrypts a text file using Caesar Cipher.");
 
